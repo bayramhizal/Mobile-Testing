@@ -26,7 +26,9 @@ public class Test05 {
       //  desiredCapabilities.setCapability( "appActivity", "com.davemac327.gesture.tool.GestureBuilderActivity" );
         //eger applikasyonun sürekli zinleri sormasini istemiyorsak asagidaki yolu takip edebiliriz
         desiredCapabilities.setCapability( "noReset", true );
+
         AndroidDriver<MobileElement> driver=new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),desiredCapabilities );
+        //cihaz kilitliyse
         if(driver.isDeviceLocked()){
             driver.unlockDevice();
         }
