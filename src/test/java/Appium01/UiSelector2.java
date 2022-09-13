@@ -3,17 +3,17 @@ package Appium01;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class UiSelector {
-
+public class UiSelector2 {
     @Test
 
-    public void test01() throws MalformedURLException, InterruptedException {
+    public void test02() throws MalformedURLException, InterruptedException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         // desiredCapabilities.setCapability( "platformName","Android" );key ve value olarak da yazilabilir
         // desiredCapabilities.setCapability( CapabilityType.PLATFORM_NAME,"Android" ); diye de yazilabilir
@@ -28,20 +28,20 @@ public class UiSelector {
         // URL url=new URL("http://17.0.0.1:4723/wd/hub");
         // AndroidDriver<MobileElement>driver=new AndroidDriver<MobileElement>( url,desiredCapabilities );//webelelemnmt ya da android element de yazilabilir
         AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>( new URL( "http://127.0.0.1:4723/wd/hub" ), desiredCapabilities );
-      //  driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"android:id/title\")" ).click();
-
-        //with index
-     //   driver.findElementByAndroidUIAutomator( "UiSelector().className(\"android.widget.Button\").index(0)" ).click();
-
-        //with text
-      //  driver.findElementByAndroidUIAutomator( "UiSelector().className(\"android.widget.Button\").text(\"Test\")" ).click();
-        //textStartsWith
-       // driver.findElementByAndroidUIAutomator( "UiSelector().className(\"android.widget.Button\").textStartsWith(\"Te\")" ).click();
-
         //When user click add button, done button must be unable
         driver.findElementByAndroidUIAutomator( "UiSelector().className(\"android.widget.Button\").textStartsWith(\"Ad\")" ).click();
-        System.out.println(driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/done\").enabled(false)" ).getAttribute( "enabled" ));
-        driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/gesture_name\")" ).click();
+        String isFalse=driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/done\").enabled(false)" ).getAttribute( "enabled" );
+        Assert.assertEquals( "false",isFalse );
+        MobileElement textbox=driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/gesture_name\")");
+        textbox.sendKeys( "experiment" );
+        Thread.sleep( 5000 );
+        MobileElement blackPoint=driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/gestures_overlay\")");
+        blackPoint.click();
+        String isTrue=driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"com.davemac327.gesture.tool:id/done\").enabled(true)" ).getAttribute( "enabled" );
+        Assert.assertEquals( "true",isTrue );
+        System.out.println("done button is enabled");
+
+
 
 
     }
