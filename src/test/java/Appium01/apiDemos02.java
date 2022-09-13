@@ -41,10 +41,13 @@ public class apiDemos02 {
         driver.findElementByXPath( "//android.widget.TextView[@text='3. Preference dependencies']" ).click();
         //    wifi check box cehck yap
         MobileElement checkBox=driver.findElementById( "android:id/checkbox" );
-        boolean flag=true;
-        if (checkBox.isEnabled()) {
-            flag=false;
+        String checkBoxUi=driver.findElementByAndroidUIAutomator( "UiSelector().resourceId(\"android:id/checkbox\").checkable(true)").getAttribute( "checked" ) ;
+        if(checkBoxUi.equals( "false" )){
+            driver.findElementById( "android:id/checkbox" ).click();
         }
+      //  boolean flag=true;
+       // if (checkBox.isEnabled()) {
+         //   flag=false; }
 
         //wifi settings tikla
         driver.findElementByXPath( "//android.widget.TextView[@text='WiFi settings']" ).click();
